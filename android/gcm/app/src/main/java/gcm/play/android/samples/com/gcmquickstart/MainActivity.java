@@ -26,8 +26,10 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
                 if (sentToken) {
                     mInformationTextView.setText(getString(R.string.gcm_send_message));
+                    initToggleBtns();
                 } else {
                     mInformationTextView.setText(getString(R.string.token_error_message));
                 }
@@ -105,4 +108,47 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void initToggleBtns(){
+        ToggleButton toggleRed = (ToggleButton)findViewById(R.id.toggleRed);
+        ToggleButton toggleGreen = (ToggleButton)findViewById(R.id.toggleGreen);
+        ToggleButton toggleBlue = (ToggleButton)findViewById(R.id.toggleBlue);
+
+        toggleRed.setChecked(TopicsUtil.isSubcribe(this, TopicsUtil.TOPICS[0]));
+        toggleGreen.setChecked(TopicsUtil.isSubcribe(this, TopicsUtil.TOPICS[1]));
+        toggleBlue.setChecked(TopicsUtil.isSubcribe(this, TopicsUtil.TOPICS[2]));
+
+        toggleRed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    TopicsUtil.subscribeTopic(MainActivity.this, TopicsUtil.TOPICS[0]);
+                } else {
+                    TopicsUtil.unsubscribeTopic(MainActivity.this, TopicsUtil.TOPICS[0]);
+                }
+            }
+        });
+
+        toggleGreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    TopicsUtil.subscribeTopic(MainActivity.this, TopicsUtil.TOPICS[1]);
+                } else {
+                    TopicsUtil.unsubscribeTopic(MainActivity.this, TopicsUtil.TOPICS[1]);
+                }
+            }
+        });
+
+        toggleBlue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    TopicsUtil.subscribeTopic(MainActivity.this, TopicsUtil.TOPICS[2]);
+                } else {
+                    TopicsUtil.unsubscribeTopic(MainActivity.this, TopicsUtil.TOPICS[2]);
+                }
+
+            }
+        });
+    }
 }

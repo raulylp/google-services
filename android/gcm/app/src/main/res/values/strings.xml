@@ -6,4 +6,8 @@
     <string name="token_error_message">An error occurred while either fetching the InstanceID token,
         sending the fetched token to the server or subscribing to the PubSub topic. Please try
         running the sample again.</string>
+    <string name="toggle_btn_red">Red</string>
+    <string name="toggle_btn_green">Green</string>
+    <string name="toggle_btn_blue">Blue</string>
+    <string name="subscribe_unsubcribe_topic">Subscribe/Unsubscribe a topic</string>
 </resources>
